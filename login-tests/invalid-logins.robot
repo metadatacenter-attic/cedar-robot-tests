@@ -6,7 +6,7 @@ Test Setup        Open Browser To Login Page
 Test Template     Login With Invalid Credentials Should Fail
 Test Teardown     Close Browser
 #Suite Teardown    Close Browser
-Resource          resource.robot
+Resource          ../resource.robot
 
 *** Test Cases ***               USER NAME        PASSWORD
 Invalid Username                 invalid          ${VALID PASSWORD}
@@ -23,8 +23,3 @@ Login With Invalid Credentials Should Fail
     Input Password    ${password}
     Submit Credentials
     Login Should Have Failed
-
-Login Should Have Failed
-    Location Should Contain    ${LOGIN_BASE}
-    Wait Until Page Contains    CEDAR
-    Page Should Contain    Invalid username or password.
