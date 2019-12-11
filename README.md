@@ -1,6 +1,10 @@
 # CEDAR Robot Framework Tests
 
-To run the login tests:
+###Login tests:
 
     robot login-tests
+
+###Create resource tests
+    
+    robot workspace/create-resource.robot
 
