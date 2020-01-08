@@ -21,6 +21,7 @@ ${defaultDescription}  TestDescription
 ${resourceTypeElement}  element
 ${resourceTypeField}  field
 ${resourceTypeTemplate}  template
+${resourceTypeInstance}  instance
 ${resourceTypeFolder}  folder
 
 ${keycloakLoginFormUsernameName}  name:username
@@ -52,6 +53,15 @@ ${breadcrumbPathAllXpath}    xpath://div[contains(@class, 'breadcrumbs-sb')]//sp
 ${breadcrumbPathSearchXpath}    xpath://div[contains(@class, 'breadcrumbs-sb')]//div[contains(text(), "Search Results For:")]
 ${gridViewToolInGridViewModeXpath}    xpath://li[@id='grid-view-tool' and contains(@class, 'grid-view')]
 ${gridViewToolButtonXpath}    xpath://li[@id='grid-view-tool']//button
+
+${resourceTypeFilterTemplateOnXpath}     xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'template-selected')]
+${resourceTypeFilterTemplateOffXpath}    xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'template-deselected')]
+${resourceTypeFilterElementOnXpath}      xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'element-selected')]
+${resourceTypeFilterElementOffXpath}     xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'element-deselected')]
+${resourceTypeFilterFieldOnXpath}        xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'field-selected')]
+${resourceTypeFilterFieldOffXpath}       xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'field-deselected')]
+${resourceTypeFilterInstanceOnXpath}     xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'instance-selected')]
+${resourceTypeFilterInstanceOffXpath}    xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'instance-deselected')]
 
 ${topSearchInputId}      id:search
 ${buttonCreateId}        id:button-create
@@ -182,7 +192,7 @@ Create Nonfolder Resource
     Input Text  ${titleId}  ${title}
     Input Text  ${descriptionId}  ${description}
 
-    Run Keyword If  '${type}'=='template'  Add TextField  Text field name  Text Field Description  "True"
+    Run Keyword If  '${type}'=='template'  Add TextField  Text Field Name  Text Field Description  True
 
     ${saveButtonId}=  Get Artifact Save Button Id  ${type}
     Wait Until Element Is Enabled  ${saveButtonId}
@@ -308,7 +318,7 @@ Add Text Field
     Input Text  ${fieldNameXpath}  ${fieldname}
     ${fieldHelpXpath}=  Get Input With Aria Label Xpath  "Enter Field Help Text"
     Input Text  ${fieldHelpXpath}  ${fieldhelptext}
-    Run Keyword If  ${is_required} == 'True'  Set Text Field Required
+    Run Keyword If  ${is_required}  Set Text Field Required
 
 #Input Field Name By Label
 #    [Arguments]  ${fieldlabel}    ${fieldvalue}
@@ -325,3 +335,17 @@ Select Tab
 Select YesNo
     [Arguments]  ${tabname}
     Click Element  xpath://div[contains(@class, ${tabname})]
+
+Switch ResourceType Filters
+    [Arguments]  ${templateOn}  ${elementOn}  ${fieldOn}  ${instanceOn}
+    Switch One ResourceType Filter  ${resourceTypeTemplate}  ${templateOn}  ${resourceTypeFilterTemplateOnXpath}  ${resourceTypeFilterTemplateOffXpath}
+    Switch One ResourceType Filter  ${resourceTypeElement}   ${elementOn}   ${resourceTypeFilterElementOnXpath}   ${resourceTypeFilterElementOffXpath}
+    Switch One ResourceType Filter  ${resourceTypeField}     ${fieldOn}     ${resourceTypeFilterFieldOnXpath}     ${resourceTypeFilterFieldOffXpath}
+    Switch One ResourceType Filter  ${resourceTypeInstance}  ${instanceOn}  ${resourceTypeFilterInstanceOnXpath}  ${resourceTypeFilterInstanceOffXpath}
+
+Switch One ResourceType Filter
+    [Arguments]  ${resourceType}  ${switchTo}  ${onXpath}  ${offXpath}
+    ${presentOn}=   Run Keyword And Return Status    Element Should Be Visible   ${onXpath}
+    ${presentOff}=  Run Keyword And Return Status    Element Should Be Visible   ${offXpath}
+    Run Keyword If  ${presentOff} and ${switchTo}  Click Element  ${offXpath}
+    Run Keyword If  ${presentOn} and not ${switchTo}  Click Element  ${onXpath}
