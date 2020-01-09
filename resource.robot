@@ -318,22 +318,27 @@ Remove All Folders
     \   Remove First Folder
 
 Remove First Field Resource
+    Sleep  0.5s
     ClickElement  ${resourceMoreButtonFieldXpath}
     Remove Resource With Open Context Menu
 
 Remove First Element Resource
+    Sleep  0.5s
     ClickElement  ${resourceMoreButtonElementXpath}
     Remove Resource With Open Context Menu
 
 Remove First Template Resource
+    Sleep  0.5s
     ClickElement  ${resourceMoreButtonTemplateXpath}
     Remove Resource With Open Context Menu
 
 Remove First Instance Resource
+    Sleep  0.5s
     ClickElement  ${resourceMoreButtonInstanceXpath}
     Remove Resource With Open Context Menu
 
 Remove First Folder
+    Sleep  0.5s
     ClickElement  ${resourceMoreButtonFolderXpath}
     Remove Resource With Open Context Menu
 
