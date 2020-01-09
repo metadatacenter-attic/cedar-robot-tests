@@ -14,20 +14,29 @@ Resource          ../lib/workspace-create.robot
 Create Field Should Succeed
     Login With User1
     ${fieldName}=  Create Field  SrcWrksp
+    Go Back To Workspace
+    Rename Resource Using Context Menu  ${fieldName}  SrcWrkspRenamed
 
 Create Element Should Succeed
     Login With User1
     ${elementName}=  Create Element  SrcWrksp
+    Go Back To Workspace
+    Rename Resource Using Context Menu  ${elementName}  SrcWrkspRenamed
 
 Create Template Should Succeed
     Login With User1
     ${templateName}=  Create Template  SrcWrksp
-    Set Global Variable  ${createdTemplateName}  ${templateName}
+    Go Back To Workspace
+    ${newTemplateName}=  Rename Resource Using Context Menu  ${templateName}  SrcWrkspRenamed
+    Set Global Variable  ${createdTemplateName}  ${newTemplateName}
 
 Create Instance Should Succeed
     Login With User1
     ${instanceName}=  Create Instance From  ${createdTemplateName}  SrcWrksp
+    Go Back To Workspace
+    Rename Resource Using Context Menu  ${instanceName}  SrcWrkspRenamed metadata
 
 Create Folder Should Succeed
     Login With User1
     ${folderName}=  Create Folder  SrcWrksp
+    Rename Resource Using Context Menu  ${folderName}  SrcWrkspRenamed

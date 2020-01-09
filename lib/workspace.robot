@@ -33,3 +33,42 @@ Switch One ResourceType Filter
     ${presentOff}=  Run Keyword And Return Status    Element Should Be Visible   ${offXpath}
     Run Keyword If  ${presentOff} and ${switchTo}  Click Element  ${offXpath}
     Run Keyword If  ${presentOn} and not ${switchTo}  Click Element  ${onXpath}
+
+Rename Resource Using Context Menu
+    [Arguments]  ${oldName}  ${newPrefix}
+    Switch ResourceType Filters  True  True  True  True
+    Switch To List View
+
+    Wait Until Page Contains Element  ${topSearchInputId}
+
+    ${searchFor}=  Catenate  SEPARATOR=  "  ${oldName}  "
+
+    Input Text  ${topSearchInputId}  ${searchFor}
+    ClickElement  ${searchButtonXpath}
+
+    Wait Until Page Contains Element  ${breadcrumbPathSearchXpath}
+
+    ClickElement  ${resourceMoreButtonGenericXpath}
+
+    Wait Until Element Is Visible  ${contextMenuRenameLinkXpath}
+    Wait Until Element Is Enabled  ${contextMenuRenameLinkXpath}
+    Click Element  ${contextMenuRenameLinkXpath}
+
+    Sleep  0.5s
+
+    Wait Until Element Is Visible  ${renameModalHeaderXpath}
+    Wait Until Element Is Enabled  ${renameModalHeaderXpath}
+
+    ${newName}=  Create Test Resource Title  ${newPrefix}
+    Input Text  ${renameModalInputXpath}  ${newName}
+
+    Click Element  ${renameModalSaveButtonXpath}
+
+    Wait Until Page Contains Element  ${toastyCloseButtonCss}
+    Element Should Be Visible  ${toastySuccessCss}
+    Click Element  ${toastyCloseButtonCss}
+
+    [return]  ${newName}
+
+Go Back To Workspace
+    Click Element  ${editorHeaderBackButtonXpath}

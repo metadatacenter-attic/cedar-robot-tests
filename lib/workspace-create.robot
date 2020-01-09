@@ -144,5 +144,5 @@ Create Instance From
     Element Should Be Visible  ${toastySuccessCss}
     Click Element  ${toastyCloseButtonCss}
 
-    ${createdInstanceName}=  Get Text  ${documentTitleDivXpath}
+    ${createdInstanceName}=  Get Element Attribute  ${documentTitleDivXpath}  uib-tooltip
     [return]  ${createdInstanceName}

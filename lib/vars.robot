@@ -31,25 +31,27 @@ ${keycloakLoginFormFeedbackTextXpath}  xpath://span[contains(@class, 'kc-feedbac
 ${toastyCloseButtonCss}  css:.toast .close-button
 ${toastySuccessCss}  css:.toast.toasty-type-success
 
-${folderCreateDialogSaveXpath}  xpath://*[@id="new-folder-modal"]//button[contains(@class, 'btn-save')]
+${folderCreateDialogSaveXpath}  xpath://*[@id='new-folder-modal']//button[contains(@class, 'btn-save')]
 
 ${searchButtonXpath}  xpath://div[contains(@class, 'navbar-header')]//a[contains(@class, 'do-search')]
 
-${resourceMoreButtonFieldXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'field')]//button[contains(@class, 'more-button')]
-${resourceMoreButtonElementXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'element')]//button[contains(@class, 'more-button')]
-${resourceMoreButtonTemplateXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'template')]//button[contains(@class, 'more-button')]
-${resourceMoreButtonInstanceXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'instance')]//button[contains(@class, 'more-button')]
-${resourceMoreButtonFolderXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'folder')]//button[contains(@class, 'more-button')]
+${resourceMoreButtonFieldXpath}  xpath://*[@id='workspace-view-container']//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'field')]//button[contains(@class, 'more-button')]
+${resourceMoreButtonElementXpath}  xpath://*[@id='workspace-view-container']//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'element')]//button[contains(@class, 'more-button')]
+${resourceMoreButtonTemplateXpath}  xpath://*[@id='workspace-view-container']//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'template')]//button[contains(@class, 'more-button')]
+${resourceMoreButtonInstanceXpath}  xpath://*[@id='workspace-view-container']//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'instance')]//button[contains(@class, 'more-button')]
+${resourceMoreButtonFolderXpath}  xpath://*[@id='workspace-view-container']//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'folder')]//button[contains(@class, 'more-button')]
+${resourceMoreButtonGenericXpath}  xpath://*[@id='workspace-view-container']//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance')]//button[contains(@class, 'more-button')]
 
 ${contextMenuDeleteLinkXpath}  xpath://div[contains(@class, 'box-row-mod') and contains(@class, 'selected')]//ul[contains(@class, 'dropdown-menu')]//a[contains(@class, 'delete')]
 ${contextMenuPopulateLinkXpath}  xpath://div[contains(@class, 'box-row-mod') and contains(@class, 'selected')]//ul[contains(@class, 'dropdown-menu')]//a[contains(@class, 'populate')]
+${contextMenuRenameLinkXpath}  xpath://div[contains(@class, 'box-row-mod') and contains(@class, 'selected')]//ul[contains(@class, 'dropdown-menu')]//a[contains(@class, 'rename')]
 
 ${confirmDialogYesButtonXpath}  xpath://div[contains(@class, 'cedarSWAL')]//button[contains(@class, 'confirm')]
 
 ${leftMenuWorkspaceLinkXpath}   xpath://div[contains(@class, 'shares')]//a[contains(@class, 'share') and contains(@class, 'workspace')]
 
-${breadcrumbPathAllXpath}    xpath://div[contains(@class, 'breadcrumbs-sb')]//span[contains(@class, 'breadcrumbs') and contains(text(), "All")]
-${breadcrumbPathSearchXpath}    xpath://div[contains(@class, 'breadcrumbs-sb')]//div[contains(text(), "Search Results For:")]
+${breadcrumbPathAllXpath}    xpath://div[contains(@class, 'breadcrumbs-sb')]//span[contains(@class, 'breadcrumbs') and contains(text(), 'All')]
+${breadcrumbPathSearchXpath}    xpath://div[contains(@class, 'breadcrumbs-sb')]//div[contains(text(), 'Search Results For:')]
 ${gridViewToolInGridViewModeXpath}    xpath://li[@id='grid-view-tool' and contains(@class, 'grid-view')]
 ${gridViewToolButtonXpath}    xpath://li[@id='grid-view-tool']//button
 
@@ -65,6 +67,10 @@ ${resourceTypeFilterInstanceOffXpath}    xpath://div[contains(@class, 'filter-ty
 ${instanceFormFirstAnswerXpath}  xpath://div[contains(@class, 'answer')]
 ${instanceFormFirstAnswerOpenedXpath}  xpath://input[contains(@class, 'form-control')]
 ${instanceFormValidationXpath}  xpath://div[contains(@class, 'validation')]
+${renameModalHeaderXpath}  xpath://*[@id='renameModalHeader']
+${renameModalInputXpath}  xpath://input[@id='rename-modal-name-input']
+${renameModalSaveButtonXpath}  xpath://button[@id='rename-modal-save-button']
+${editorHeaderBackButtonXpath}  xpath://div[contains(@class, 'navbar-header')]//div[contains(@class, 'back-arrow-click')]
 
 ${documentTitleDivXpath}  xpath://div[contains(@class, 'document-title')]
 
