@@ -1,10 +1,14 @@
 *** Settings ***
 Documentation     Create Resource.
-Resource          ../resource.robot
 #Suite Setup       Open Browser To Login Page
 Test Setup        Open Browser To Login Page
 Test Teardown     Close Browser
 #Suite Teardown    Close Browser
+Resource          ../lib/vars.robot
+Resource          ../lib/login.robot
+Resource          ../lib/keywords.robot
+Resource          ../lib/workspace.robot
+Resource          ../lib/workspace-remove.robot
 
 *** Test Cases ***
 Remove All Resources For User Should Succeed
