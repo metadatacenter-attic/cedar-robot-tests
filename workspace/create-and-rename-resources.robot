@@ -8,26 +8,22 @@ Test Teardown     Close Browser
 
 *** Test Cases ***
 Create Field Should Succeed
-    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
-    Create Field  SrcWrksp
+    Login With User1
+    ${fieldName}=  Create Field  SrcWrksp
 
 Create Element Should Succeed
-    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
-    Create Element  SrcWrksp
+    Login With User1
+    ${elementName}=  Create Element  SrcWrksp
 
 Create Template Should Succeed
-    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
+    Login With User1
     ${templateName}=  Create Template  SrcWrksp
-    Log  ${templateName}
     Set Global Variable  ${createdTemplateName}  ${templateName}
 
 Create Instance Should Succeed
-    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
-    Create Instance From  ${createdTemplateName}  SrcWrksp
+    Login With User1
+    ${instanceName}=  Create Instance From  ${createdTemplateName}  SrcWrksp
 
 Create Folder Should Succeed
-    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
-    Create Folder  SrcWrksp
-
-*** Keywords ***
-
+    Login With User1
+    ${folderName}=  Create Folder  SrcWrksp

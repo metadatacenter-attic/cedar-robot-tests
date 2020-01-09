@@ -5,15 +5,16 @@ Documentation     A resource file with reusable keywords and variables.
 ...               domain specific language. They utilize keywords provided
 ...               by the imported SeleniumLibrary.
 Library           SeleniumLibrary
-#Library           Selenium2Screenshots
 
 *** Variables ***
-${SERVER_BASE}      https://cedar.metadatacenter.orgx
-${LOGIN_BASE}       https://auth.metadatacenter.orgx/auth/realms/CEDAR/login-actions/authenticate
-${BROWSER}          Chrome
-${DELAY}            0 seconds
-${VALID USER}       test1@test.com
-${VALID PASSWORD}   test1
+${SERVER_BASE}        https://cedar.metadatacenter.orgx
+${LOGIN_BASE}         https://auth.metadatacenter.orgx/auth/realms/CEDAR/login-actions/authenticate
+${BROWSER}            Chrome
+${DELAY}              0 seconds
+${VALID USER 1}       test1@test.com
+${VALID PASSWORD 1}   test1
+${VALID USER 2}       test2@test.com
+${VALID PASSWORD 2}   test2
 
 ${defaultTitle}     TestTitle
 ${defaultDescription}  TestDescription
@@ -69,6 +70,8 @@ ${instanceFormFirstAnswerXpath}  xpath://div[contains(@class, 'answer')]
 ${instanceFormFirstAnswerOpenedXpath}  xpath://input[contains(@class, 'form-control')]
 ${instanceFormValidationXpath}  xpath://div[contains(@class, 'validation')]
 
+${documentTitleDivXpath}  xpath://div[contains(@class, 'document-title')]
+
 ${topSearchInputId}      id:search
 ${buttonCreateId}        id:button-create
 ${newFolderModalId}      id:new-folder-modal
@@ -102,6 +105,9 @@ Login With Credentials
     Submit Credentials
     Login Should Have Succeed
 
+Login With User1
+    Login With Credentials  ${VALID USER 1}    ${VALID PASSWORD 1}
+
 Login Should Have Succeed
     Location Should Contain    ${SERVER_BASE}
     Wait Until Element Is Visible  ${leftMenuWorkspaceLinkXpath}
@@ -117,12 +123,14 @@ Create Field
     ${fieldTitle}=  Create Test Resource Title  ${name}
     ${fieldDescription}=  Create Test Resource Description  ${name}
     Create Resource  ${resourceTypeField}  ${fieldTitle}  ${fieldDescription}
+    [return]  ${fieldTitle}
 
 Create Element
     [Arguments]    ${name}
     ${elementTitle}=  Create Test Resource Title  ${name}
     ${elementDescription}=  Create Test Resource Description  ${name}
     Create Resource  ${resourceTypeElement}  ${elementTitle}  ${elementDescription}
+    [return]  ${elementTitle}
 
 Create Template
     [Arguments]    ${name}
@@ -136,6 +144,7 @@ Create Folder
     ${folderTitle}=  Create Test Resource Title  ${name}
     ${folderDescription}=  Create Test Resource Description  ${name}
     Create Resource  ${resourceTypeFolder}  ${folderTitle}  ${folderDescription}
+    [return]  ${folderTitle}
 
 Create Test Resource Title
     [Arguments]    ${name}
@@ -270,6 +279,9 @@ Create Instance From
     Wait Until Page Contains Element  ${toastyCloseButtonCss}
     Element Should Be Visible  ${toastySuccessCss}
     Click Element  ${toastyCloseButtonCss}
+
+    ${createdInstanceName}=  Get Text  ${documentTitleDivXpath}
+    [return]  ${createdInstanceName}
 
 Remove All Resources By Search
     [Arguments]    ${type}  ${prefix}

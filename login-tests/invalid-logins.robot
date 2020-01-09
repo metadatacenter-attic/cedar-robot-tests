@@ -10,10 +10,10 @@ Resource          ../resource.robot
 
 *** Test Cases ***               USER NAME        PASSWORD
 Invalid Username                 invalid          ${VALID PASSWORD}
-Invalid Password                 ${VALID USER}    invalid
+Invalid Password                 ${VALID USER 1}  invalid
 Invalid Username And Password    invalid          whatever
 Empty Username                   ${EMPTY}         ${VALID PASSWORD}
-Empty Password                   ${VALID USER}    ${EMPTY}
+Empty Password                   ${VALID USER 1}  ${EMPTY}
 Empty Username And Password      ${EMPTY}         ${EMPTY}
 
 *** Keywords ***

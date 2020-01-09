@@ -9,4 +9,4 @@ Resource          ../resource.robot
 
 *** Test Cases ***
 Login With Valid Credentials Should Succeed
-    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
+    Login With User1

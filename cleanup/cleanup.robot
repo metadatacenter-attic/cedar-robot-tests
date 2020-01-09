@@ -7,12 +7,8 @@ Test Teardown     Close Browser
 #Suite Teardown    Close Browser
 
 *** Test Cases ***
-#Reset User Preferences Should Succeed
-    #Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
-    #Init User Preferences
-
 Remove All Resources For User Should Succeed
-    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
+    Login With User1
     Go To Workspace View
     Switch To List View
     Switch ResourceType Filters  False  False  False  False
@@ -30,6 +26,3 @@ Remove All Resources For User Should Succeed
     Switch ResourceType Filters  True  False  False  False
     Remove All Resources By Search  ${resourceTypeTemplate}  SrcWrksp
     Switch ResourceType Filters  True  True  True  True
-
-*** Keywords ***
-
