@@ -5,7 +5,8 @@ Documentation     Valid login test.
 Test Setup        Open Browser To Login Page
 Test Teardown     Close Browser
 #Suite Teardown    Close Browser
-Resource          ../resource.robot
+Resource          ../lib/vars.robot
+Resource          ../lib/login.robot
 
 *** Test Cases ***
 Login With Valid Credentials Should Succeed
