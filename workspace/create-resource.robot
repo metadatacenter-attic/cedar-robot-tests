@@ -17,7 +17,13 @@ Create Element Should Succeed
 
 Create Template Should Succeed
     Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
-    Create Template  SrcWrksp
+    ${templateName}=  Create Template  SrcWrksp
+    Log  ${templateName}
+    Set Global Variable  ${createdTemplateName}  ${templateName}
+
+Create Instance Should Succeed
+    Login With Credentials  ${VALID USER}    ${VALID PASSWORD}
+    Create Instance From  ${createdTemplateName}  SrcWrksp
 
 Create Folder Should Succeed
     Login With Credentials  ${VALID USER}    ${VALID PASSWORD}

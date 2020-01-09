@@ -41,9 +41,11 @@ ${searchButtonXpath}  xpath://div[contains(@class, 'navbar-header')]//a[contains
 ${resourceMoreButtonFieldXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'field')]//button[contains(@class, 'more-button')]
 ${resourceMoreButtonElementXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'element')]//button[contains(@class, 'more-button')]
 ${resourceMoreButtonTemplateXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'template')]//button[contains(@class, 'more-button')]
+${resourceMoreButtonInstanceXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'instance')]//button[contains(@class, 'more-button')]
 ${resourceMoreButtonFolderXpath}  xpath://*[@id="workspace-view-container"]//div[contains(@class, 'populate-form-boxes')]//div[contains(@class, 'resource-instance') and contains(@class, 'folder')]//button[contains(@class, 'more-button')]
 
 ${contextMenuDeleteLinkXpath}  xpath://div[contains(@class, 'box-row-mod') and contains(@class, 'selected')]//ul[contains(@class, 'dropdown-menu')]//a[contains(@class, 'delete')]
+${contextMenuPopulateLinkXpath}  xpath://div[contains(@class, 'box-row-mod') and contains(@class, 'selected')]//ul[contains(@class, 'dropdown-menu')]//a[contains(@class, 'populate')]
 
 ${confirmDialogYesButtonXpath}  xpath://div[contains(@class, 'cedarSWAL')]//button[contains(@class, 'confirm')]
 
@@ -62,6 +64,10 @@ ${resourceTypeFilterFieldOnXpath}        xpath://div[contains(@class, 'filter-ty
 ${resourceTypeFilterFieldOffXpath}       xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'field-deselected')]
 ${resourceTypeFilterInstanceOnXpath}     xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'instance-selected')]
 ${resourceTypeFilterInstanceOffXpath}    xpath://div[contains(@class, 'filter-type')]//div[contains(@class, 'instance-deselected')]
+
+${instanceFormFirstAnswerXpath}  xpath://div[contains(@class, 'answer')]
+${instanceFormFirstAnswerOpenedXpath}  xpath://input[contains(@class, 'form-control')]
+${instanceFormValidationXpath}  xpath://div[contains(@class, 'validation')]
 
 ${topSearchInputId}      id:search
 ${buttonCreateId}        id:button-create
@@ -123,6 +129,7 @@ Create Template
     ${templateTitle}=  Create Test Resource Title  ${name}
     ${templateDescription}=  Create Test Resource Description  ${name}
     Create Resource  ${resourceTypeTemplate}  ${templateTitle}  ${templateDescription}
+    [return]  ${templateTitle}
 
 Create Folder
     [Arguments]    ${name}
@@ -226,6 +233,44 @@ Create Folder Resource
     Element Should Be Visible  ${toastySuccessCss}
     Click Element  ${toastyCloseButtonCss}
 
+Create Instance From
+    [Arguments]    ${templateName}  ${name}
+    ${instanceTitle}=  Create Test Resource Title  ${name}
+    ${instanceDescription}=  Create Test Resource Description  ${name}
+
+    Switch To List View
+    Switch ResourceType Filters  True  False  False  False
+
+    Wait Until Page Contains Element  ${topSearchInputId}
+
+    ${searchFor}=  Catenate  SEPARATOR=  "  ${templateName}  "
+
+    Input Text  ${topSearchInputId}  ${searchFor}
+    ClickElement  ${searchButtonXpath}
+
+    Wait Until Page Contains Element  ${breadcrumbPathSearchXpath}
+
+    ClickElement  ${resourceMoreButtonTemplateXpath}
+
+    Wait Until Element Is Visible  ${contextMenuPopulateLinkXpath}
+    Wait Until Element Is Enabled  ${contextMenuPopulateLinkXpath}
+    Click Element  ${contextMenuPopulateLinkXpath}
+
+    Sleep  0.5s
+
+    Wait Until Page Contains  ${templateName}
+    Click Element  ${instanceFormFirstAnswerXpath}
+    Wait Until Element Is Visible  ${instanceFormValidationXpath}
+    Input Text  ${instanceFormFirstAnswerOpenedXpath}  Abcd
+
+    ${saveButtonId}=  Get Artifact Save Button Id  metadata
+    Wait Until Element Is Enabled  ${saveButtonId}
+    Click Element  ${saveButtonId}
+
+    Wait Until Page Contains Element  ${toastyCloseButtonCss}
+    Element Should Be Visible  ${toastySuccessCss}
+    Click Element  ${toastyCloseButtonCss}
+
 Remove All Resources By Search
     [Arguments]    ${type}  ${prefix}
     Wait Until Page Contains Element  ${topSearchInputId}
@@ -239,6 +284,7 @@ Remove All Resources By Search
     Run Keyword If  '${type}'=='field'  Remove All Field Resources
     Run Keyword If  '${type}'=='element'  Remove All Element Resources
     Run Keyword If  '${type}'=='template'  Remove All Template Resources
+    Run Keyword If  '${type}'=='instance'  Remove All Instance Resources
     Run Keyword If  '${type}'=='folder'  Remove All Folders
 
 Remove All Field Resources
@@ -259,6 +305,12 @@ Remove All Template Resources
     \   Exit For Loop If    ${elementCount} == 0
     \   Remove First Template Resource
 
+Remove All Instance Resources
+    FOR    ${i}    IN RANGE    999999
+    \   ${elementCount}=  Get Element Count  ${resourceMoreButtonInstanceXpath}
+    \   Exit For Loop If    ${elementCount} == 0
+    \   Remove First Instance Resource
+
 Remove All Folders
     FOR    ${i}    IN RANGE    999999
     \   ${elementCount}=  Get Element Count  ${resourceMoreButtonFolderXpath}
@@ -275,6 +327,10 @@ Remove First Element Resource
 
 Remove First Template Resource
     ClickElement  ${resourceMoreButtonTemplateXpath}
+    Remove Resource With Open Context Menu
+
+Remove First Instance Resource
+    ClickElement  ${resourceMoreButtonInstanceXpath}
     Remove Resource With Open Context Menu
 
 Remove First Folder

@@ -24,6 +24,9 @@ Remove All Resources For User Should Succeed
     Switch ResourceType Filters  False  True  False  False
     Remove All Resources By Search  ${resourceTypeElement}  SrcWrksp
     Go To Workspace View
+    Switch ResourceType Filters  False  False  False  True
+    Remove All Resources By Search  ${resourceTypeInstance}  SrcWrksp
+    Go To Workspace View
     Switch ResourceType Filters  True  False  False  False
     Remove All Resources By Search  ${resourceTypeTemplate}  SrcWrksp
     Switch ResourceType Filters  True  True  True  True
